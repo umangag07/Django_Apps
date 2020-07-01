@@ -1,6 +1,7 @@
-# Django_Apps
- 
- ## These apps can be used for pre exsisting website created using django framework or you can create new using all these apps. 
+# Django
+
+## Contain Django apps(you can use use these in your projects with few changes that are specified) and full projects.
+
  
 ## Install
 python and pip should be downloaded already.
