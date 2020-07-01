@@ -1,6 +1,6 @@
 # Django
 
-## Contain Django apps(you can use use these in your projects with few changes that are specified) and full projects.
+## Contain Django apps(you can use these in your projects with few changes that are specified) and full projects.
 
  
 ## Install
