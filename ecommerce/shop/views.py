@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import product,user_contact
+from .models import product,user_contact,order_details
 from math import ceil
 
 # Create your views here.
@@ -48,23 +48,25 @@ def productview(request, myid):
 
 
 def checkout(request):
+    if request.method=="POST":
+        cust_item_json=request.POST.get("itemsjson",'')
+        cust_fname=request.POST.get("fname","")
+        cust_lname=request.POST.get("lname","")
+        cust_email=request.POST.get("email","")
+        cust_phoneno=request.POST.get("phoneno","")
+        cust_address=request.POST.get("address","")
+        cust_addressline2=request.POST.get("addressline2","")
+        cust_city=request.POST.get("city","")
+        cust_state=request.POST.get("state","")
+        cust_zip=request.POST.get("zip","")
+        Order_details=order_details(cust_item_json=cust_item_json,cust_fname=cust_fname,cust_lname=cust_lname,cust_email=cust_email,cust_phoneno=cust_phoneno,cust_address=cust_address,cust_addressline2=cust_addressline2,cust_city=cust_city,cust_state=cust_state,cust_zip=cust_zip)
+        Order_details.save()
+        thank=True    #for checking thta request is made 
+        id=order_details.order_id
+        return render(request, "shop/checkout.html",{'thank':thank,'id':id}) 
     return render(request, "shop/checkout.html")
 
 
 def cart(request):
     return render(request, "shop/cart.html")
-
-"""
-// function to clear the cart items
-  function clearcart(){
-      cart=JSON.parse(localStorage.getItem('cart'));
-      for(var item in cart){
-          document.getElementById('val'+item).innerHTML= '<button id="'+item+'" type="button" class="btn btn-primary cart">Add to cart</button'>
-      }
-      localstore.clear();
-      cart={};
-      updatecart(cart);}
-      popStr=popStr+"<a href='/shop/checkout'><button class='btn btn-primary' id='checkout'>Checkout</button></a> <button class='btn btn-primary' id='clearcart' oncli>Checkout</button>";
-  }
-"""    
 
