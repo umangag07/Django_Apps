@@ -22,3 +22,18 @@ class user_contact(models.Model):
 
     def __str__(self):
             return self.name
+
+class order_details(models.Model):
+    order_id=models.AutoField(primary_key=True)
+    cust_item_json=models.CharField(max_length=5000)
+    cust_fname=models.CharField(max_length=50)
+    cust_lname=models.CharField(max_length=50)
+    cust_email=models.EmailField(max_length=50,default='')
+    cust_phoneno=models.CharField(max_length=50,default='')
+    cust_address=models.CharField(max_length=300,default='')
+    cust_addressline2=models.CharField(max_length=300,default='')
+    cust_city=models.CharField(max_length=40,default='')
+    cust_state=models.CharField(max_length=30,default='')
+    cust_zip=models.IntegerField()
+
+
