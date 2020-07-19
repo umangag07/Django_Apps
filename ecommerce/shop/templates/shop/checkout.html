@@ -2,54 +2,56 @@
 <div class="container">
     <div class="col my-4">
         <h2>Step-1 Review Your Cart Items.</h2>
-        <ul class="list-group" id="itemlist">
+        <ul class="list-group my-2" id="itemlist">
 
         </ul>
     </div>
-    <div class="col my-4">
-        <h2 id="customerDetailHeading">Step-2 Enter your details</h2>
-        <form id="form">
+    <div class="col my-5">
+        <h2 id="customerDetailHeading" class="heading my-5">Step-2 Enter your details</h2>
+        <form method="POST" action="/shop/checkout/" id="form">
+            {% csrf_token %}
+            <input type="hidden" name="itemsjson" id="itemsjson">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputfname">FirstName</label>
-                    <input type="name" class="form-control" id="inputfname">
+                    <input type="text" class="form-control" id="fname" name="fname">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputlname">LastName</label>
-                    <input type="name" class="form-control" id="inputlname">
+                    <input type="name" class="form-control" id="lname" name="lname">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4">
+                    <input type="email" class="form-control" id="email" name="email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputphone">Phone No</label>
-                    <input type="tel" class="form-control" id="inputphone">
+                    <input type="tel" class="form-control" id="phoneno" name="phoneno">
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                <input type="text" class="form-control" id="address" placeholder="1234 Main St" name="address">
             </div>
             <div class="form-group">
                 <label for="inputAddress2">Address line 2</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                <input type="text" class="form-control" id="addressline2" placeholder="Apartment, studio, or floor" name="addressline2">
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity">
+                    <input type="text" class="form-control" id="city" name="city">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputState">State</label>
-                    <input type="text" class="form-control" id="inputstate" placeholder="Input state">
+                    <input type="text" class="form-control" id="state" placeholder="Input state" name="state">
 
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputZip">Zip</label>
-                    <input type="text" class="form-control" id="inputZip">
+                    <input type="text" class="form-control" id="zip" name="zip">
                 </div>
             </div>
             <div class="form-group">
@@ -60,7 +62,7 @@
       </label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary">Save and continue</button>
         </form>
     </div>
 </div>
@@ -82,13 +84,21 @@
             let name = cart[item][1];
             let qty = cart[item][0];
             mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
-                ${name}
-                <span class="badge badge-primary badge-pill">${qty}</span>
+                <h6>${name}</h6>
+                <span class="badge badge-primary badge-pill"><i>Quantity:${qty}</i></span>
             </li>`;
             $('#itemlist').append(mystr);
         }
     }
+    $('#itemsjson').val(JSON.stringify(cart)); 
+    {% if thank %}
+    alert('Thnak for ordering with us. You can us this id:{{id}} to track your order.') 
+    localStorage.clear(); 
+    document.location="/shop";
+    {% endif %}
 
-
+    $('#popcart').remove();
+    $('#registerbutton').remove();
+    $('#loginbutton').remove();
     console.log(cart);
 </script>{% endblock %}
